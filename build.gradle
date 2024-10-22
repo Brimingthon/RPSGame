@@ -1,0 +1,47 @@
+buildscript {
+    ext {
+        gdxVersion = '1.13.0'  // Change this to the latest libGDX version
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group = 'com.game.rps'
+version = '1.0-SNAPSHOT'
+
+allprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+project(":core") {
+    apply plugin: "java-library"
+}
+
+project(":desktop") {
+    apply plugin: "java"
+    dependencies {
+        implementation project(":core")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+}
+
+test {
+    useJUnitPlatform()
+}
